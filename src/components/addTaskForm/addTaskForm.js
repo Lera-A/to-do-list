@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
-export default function AddTaskForm(props) {
+export default function AddTaskForm({ addTask }) {
     const [text, setText] = useState('');
 
-    const handleTextChange = (e) => {
+    const handleTextChange = useCallback((e) => {
         setText(e.target.value);
-    };
+    }, []);
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
         if (text.length > 0) {
-            const task = {
-                text: text
-            };
-            props.addTask(task);
+            const task = text;
+            addTask(task);
             setText('');
-        }
-    }
-
+        };
+    }, [addTask, text]);
 
     return (
         <div>

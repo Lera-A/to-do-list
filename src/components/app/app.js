@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import AddTasksForm from './addTaskForm';
-import Task from './task';
+import React, { useState, useCallback } from 'react';
+import AddTasksForm from '../addTaskForm';
+import Task from '../task';
 
 
 export default function App() {
-    const [tasks, setTasks] = useState([{
-        text: ''
-    }]);
+    const [tasks, setTasks] = useState([]);
 
-    const addTask = (task) => {
+    const addTask = useCallback((task) => {
         setTasks((tasks) => [task, ...tasks]);
-    };
+    }, []);
 
 
 
