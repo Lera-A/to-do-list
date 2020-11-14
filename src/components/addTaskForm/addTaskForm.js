@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import generateId from '../generateId'
 
 export default function AddTaskForm({ addTask }) {
     const [text, setText] = useState('');
@@ -9,11 +10,20 @@ export default function AddTaskForm({ addTask }) {
 
     const handleClick = useCallback(() => {
         if (text.length > 0) {
-            const task = text;
+            const task = {
+                text: text,
+                id: generateId()
+            };
             addTask(task);
             setText('');
         };
-    }, [addTask, text]);
+    }, [text, addTask]);
+
+    const handleKeyPress = useCallback((e) => {
+        if (e.key === 'Enter') {
+            handleClick();
+        };
+    }, [handleClick]);
 
     return (
         <div>
@@ -22,8 +32,9 @@ export default function AddTaskForm({ addTask }) {
                 type="text"
                 placeholder="What's your task?"
                 onChange={handleTextChange}
+                onKeyPress={handleKeyPress}
             />
-            <input type="submit" value="Add" onClick={handleClick} />
+            <button onClick={handleClick}>Add</button>
         </div>
-    )
-}
+    );
+};

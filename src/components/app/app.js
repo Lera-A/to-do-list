@@ -1,16 +1,22 @@
 import React, { useState, useCallback } from 'react';
 import AddTasksForm from '../addTaskForm';
 import Task from '../task';
-
+import generateId from '../generateId';
 
 export default function App() {
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState([{
+        text: '',
+        id: generateId()
+    }]);
 
     const addTask = useCallback((task) => {
-        setTasks((tasks) => [task, ...tasks]);
+        setTasks((tasks) => [...tasks, task]);
     }, []);
 
-
+    const removeTask = useCallback((taskToRemove) => {
+        setTasks((tasks) =>
+            tasks.filter((task) => task.id !== taskToRemove));
+    }, []);
 
     return (
         <div>
@@ -21,12 +27,10 @@ export default function App() {
                 <AddTasksForm addTask={addTask} />
                 <ul>
                     {tasks.map((task, i) => (
-                        <Task task={task} key={'task_' + i} />
+                        <Task task={task} key={task.id} removeTask={removeTask} />
                     ))}
                 </ul>
-
             </main>
         </div>
-    )
-
-}
+    );
+};
