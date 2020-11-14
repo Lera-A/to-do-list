@@ -26,9 +26,9 @@ export default function App() {
             <main>
                 <AddTasksForm addTask={addTask} />
                 <ul>
-                    {tasks.map((task, i) => (
+                    {tasks.map((task) =>
                         <Task task={task} key={task.id} removeTask={removeTask} />
-                    ))}
+                    )}
                 </ul>
             </main>
         </div>

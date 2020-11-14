@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-
+import PropTypes from 'prop-types';
 
 export default function Task({ task, removeTask }) {
     const [isChecked, setIsChecked] = useState(false);
@@ -23,5 +23,11 @@ export default function Task({ task, removeTask }) {
     );
 };
 
-
+Task.propTypes = {
+    task: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        text: PropTypes.string.isRequired
+    }).isRequired,
+    removeTask: PropTypes.func.isRequired
+};
 

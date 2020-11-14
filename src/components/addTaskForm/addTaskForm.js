@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import generateId from '../generateId'
+import PropTypes from 'prop-types';
+import generateId from '../generateId';
 
 export default function AddTaskForm({ addTask }) {
     const [text, setText] = useState('');
@@ -37,4 +38,8 @@ export default function AddTaskForm({ addTask }) {
             <button onClick={handleClick}>Add</button>
         </div>
     );
+};
+
+AddTaskForm.propTypes = {
+    addTask: PropTypes.func.isRequired
 };
